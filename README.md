@@ -44,3 +44,7 @@ El wireframe inicial está guardado en la carpeta `docs/design`.
 - Los botones tienen texto visible.
 - El foco es visible al navegar con teclado.
 - Se puede usar la aplicación con teclado.
+
+## Deploy
+
+URL del proyecto: https://miproyecto-pi.vercel.app
