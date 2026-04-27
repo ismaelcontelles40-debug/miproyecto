@@ -1,16 +1,17 @@
+## Diseño de la aplicación
 
-# TaskFlow
+TaskFlow es una aplicación de gestión de tareas que permite añadir, completar y eliminar tareas.
 
-Aplicación de gestión de tareas (To-Do) creada durante el bootcamp.
+La interfaz se divide en:
+- Cabecera
+- Formulario para añadir tareas
+- Lista de tareas
+- Panel de estadísticas
 
-## Funcionalidades
+El usuario podrá:
 - Añadir tareas
 - Marcar tareas como completadas
 - Eliminar tareas
 - Ver estadísticas
 
-## Tecnologías
-- HTML
-- CSS
-- JavaScript
-suuuu
+El diseño inicial está en la carpeta docs/design.
