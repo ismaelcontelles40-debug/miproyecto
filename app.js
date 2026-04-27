@@ -19,10 +19,11 @@ form.addEventListener("submit", (e) => {
   if (input.value.trim() === "") return;
 
   const task = {
-    id: Date.now(),
-    title: input.value,
-    completed: false,
-  };
+  id: Date.now(),
+  title: input.value.trim(),
+  completed: false,
+  createdAt: new Date().toISOString(),
+};
 
   tasks.push(task);
   input.value = "";
