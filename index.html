@@ -6,13 +6,16 @@
     <title>TaskFlow</title>
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
+    <!-- HEADER -->
     <header>
       <h1>TaskFlow</h1>
     </header>
 
+    <!-- MAIN -->
     <main>
-      <!-- FORMULARIO -->
+      <!-- FORMULARIO + FILTROS -->
       <section>
         <form id="task-form">
           <label for="task-input">Nueva tarea</label>
@@ -24,15 +27,22 @@
           />
           <button type="submit">Añadir</button>
         </form>
+
+        <!-- FILTROS -->
+        <div id="filters">
+          <button data-filter="all">Todas</button>
+          <button data-filter="completed">Completadas</button>
+          <button data-filter="pending">Pendientes</button>
+        </div>
       </section>
 
-      <!-- LISTA -->
+      <!-- LISTA DE TAREAS -->
       <section>
         <h2>Lista de tareas</h2>
         <ul id="task-list"></ul>
       </section>
 
-      <!-- ESTADÍSTICAS -->
+      <!-- PANEL DE ESTADÍSTICAS -->
       <aside>
         <h2>Estadísticas</h2>
         <p>Total: <span id="total">0</span></p>
@@ -41,10 +51,12 @@
       </aside>
     </main>
 
+    <!-- FOOTER -->
     <footer>
       <p>Proyecto bootcamp</p>
     </footer>
 
+    <!-- SCRIPT -->
     <script src="app.js"></script>
   </body>
 </html>
