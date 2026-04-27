@@ -6,9 +6,13 @@ const totalEl = document.getElementById("total");
 const completedEl = document.getElementById("completed");
 const pendingEl = document.getElementById("pending");
 
+const searchInput = document.getElementById("search-input");
+
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let currentFilter = "all";
+let searchText = "";
 
+// Añadir tarea
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -26,15 +30,24 @@ form.addEventListener("submit", (e) => {
   renderTasks();
 });
 
+// Renderizar tareas
 function renderTasks() {
   list.innerHTML = "";
 
   let filteredTasks = tasks;
 
+  // Filtro completadas / pendientes
   if (currentFilter === "completed") {
     filteredTasks = tasks.filter((task) => task.completed);
   } else if (currentFilter === "pending") {
     filteredTasks = tasks.filter((task) => !task.completed);
+  }
+
+  // Filtro búsqueda
+  if (searchText !== "") {
+    filteredTasks = filteredTasks.filter((task) =>
+      task.title.toLowerCase().includes(searchText.toLowerCase())
+    );
   }
 
   filteredTasks.forEach((task) => {
@@ -71,6 +84,7 @@ function renderTasks() {
   updateStats();
 }
 
+// Estadísticas
 function updateStats() {
   const total = tasks.length;
   const completed = tasks.filter((t) => t.completed).length;
@@ -81,14 +95,15 @@ function updateStats() {
   pendingEl.textContent = pending;
 }
 
+// Guardar en localStorage
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-// 👉 Render inicial
+// Render inicial
 renderTasks();
 
-// 👉 Filtros
+// Filtros
 const filterButtons = document.querySelectorAll("#filters button");
 
 filterButtons.forEach((button) => {
@@ -96,4 +111,10 @@ filterButtons.forEach((button) => {
     currentFilter = button.dataset.filter;
     renderTasks();
   });
+});
+
+// Buscador
+searchInput.addEventListener("input", () => {
+  searchText = searchInput.value;
+  renderTasks();
 });

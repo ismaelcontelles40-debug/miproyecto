@@ -15,7 +15,7 @@
 
     <!-- MAIN -->
     <main>
-      <!-- FORMULARIO + FILTROS -->
+      <!-- FORMULARIO + FILTROS + BUSCADOR -->
       <section>
         <form id="task-form">
           <label for="task-input">Nueva tarea</label>
@@ -34,15 +34,25 @@
           <button data-filter="completed">Completadas</button>
           <button data-filter="pending">Pendientes</button>
         </div>
+
+        <!-- BUSCADOR -->
+        <div id="search-container">
+          <label for="search-input">Buscar tarea</label>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Buscar..."
+          />
+        </div>
       </section>
 
-      <!-- LISTA DE TAREAS -->
+      <!-- LISTA -->
       <section>
         <h2>Lista de tareas</h2>
         <ul id="task-list"></ul>
       </section>
 
-      <!-- PANEL DE ESTADÍSTICAS -->
+      <!-- ESTADÍSTICAS -->
       <aside>
         <h2>Estadísticas</h2>
         <p>Total: <span id="total">0</span></p>
