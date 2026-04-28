@@ -1,21 +1,57 @@
-# Prompts utilizados
+# Ingeniería de prompts
 
-## Prompt 1
+## Ejemplo de prompt con rol
 
-Explica qué es LocalStorage en JavaScript con un ejemplo sencillo.
+Actúa como profesor de programación y explícame cómo mejorar el código de una aplicación de tareas.
 
-## Prompt 2
+## Ejemplo de few-shot prompting
 
-Revisa este código JavaScript y dime si tiene errores.
+Ejemplo 1:  
+Entrada: tarea completada  
+Salida: true  
 
-## Prompt 3
+Ejemplo 2:  
+Entrada: tarea pendiente  
+Salida: false  
 
-Genera una función para filtrar tareas completadas y pendientes.
+## Uso de prompts en el proyecto
 
-## Prompt 4
+Se han utilizado prompts para:
+- Explicar conceptos como LocalStorage
+- Detectar errores en el código
+- Generar funciones
+- Mejorar la estructura del proyecto
 
-Actúa como profesor de programación y explícame cómo mejorar la estructura de este proyecto.
+## Comparación con y sin IA
 
-## Prompt 5
+Sin IA:  
+El desarrollo requiere más tiempo y esfuerzo para encontrar errores y soluciones.
 
-Compara una solución hecha manualmente con otra asistida por IA.
+Con IA:  
+Se obtiene ayuda rápida para resolver problemas y generar código, lo que mejora la productividad.
+
+## Conclusión sobre prompts
+
+El uso de prompts permite aprovechar mejor la inteligencia artificial y obtener resultados más útiles y precisos.
+
+---
+
+# Reflexión final
+
+El uso de inteligencia artificial en el desarrollo permite mejorar la productividad y aprender más rápido.
+
+## Beneficios
+
+- Ahorro de tiempo
+- Mejora del código
+- Ayuda en el aprendizaje
+
+## Riesgos
+
+- Dependencia de la IA
+- Posibles errores en el código generado
+- Falta de comprensión si no se revisa
+
+## Conclusión final
+
+La IA es una herramienta muy útil si se usa correctamente, pero es importante entender siempre el código y no depender completamente de ella.
