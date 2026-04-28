@@ -12,18 +12,22 @@ let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let currentFilter = "all";
 let searchText = "";
 
-// Añadir tarea
+/**
+ * Crea una nueva tarea y la añade al array de tareas.
+ */
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  if (input.value.trim() === "") return;
+  const title = input.value.trim();
+
+  if (title === "") return;
 
   const task = {
-  id: Date.now(),
-  title: input.value.trim(),
-  completed: false,
-  createdAt: new Date().toISOString(),
-};
+    id: Date.now(),
+    title: title,
+    completed: false,
+    createdAt: new Date().toISOString(),
+  };
 
   tasks.push(task);
   input.value = "";
@@ -31,20 +35,21 @@ form.addEventListener("submit", (e) => {
   renderTasks();
 });
 
-// Renderizar tareas
+/**
+ * Renderiza la lista de tareas en el DOM aplicando filtros y búsqueda.
+ * También actualiza LocalStorage y las estadísticas.
+ */
 function renderTasks() {
   list.innerHTML = "";
 
   let filteredTasks = tasks;
 
-  // Filtro completadas / pendientes
   if (currentFilter === "completed") {
     filteredTasks = tasks.filter((task) => task.completed);
   } else if (currentFilter === "pending") {
     filteredTasks = tasks.filter((task) => !task.completed);
   }
 
-  // Filtro búsqueda
   if (searchText !== "") {
     filteredTasks = filteredTasks.filter((task) =>
       task.title.toLowerCase().includes(searchText.toLowerCase())
@@ -56,20 +61,18 @@ function renderTasks() {
 
     li.textContent = task.title;
 
-    // Marcar completada
     li.addEventListener("click", () => {
       task.completed = !task.completed;
       renderTasks();
     });
 
-    // Estilo completada
     if (task.completed) {
       li.style.textDecoration = "line-through";
     }
 
-    // Botón eliminar
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "X";
+    deleteBtn.setAttribute("aria-label", `Eliminar tarea ${task.title}`);
 
     deleteBtn.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -85,10 +88,12 @@ function renderTasks() {
   updateStats();
 }
 
-// Estadísticas
+/**
+ * Actualiza las estadísticas de tareas totales, completadas y pendientes.
+ */
 function updateStats() {
   const total = tasks.length;
-  const completed = tasks.filter((t) => t.completed).length;
+  const completed = tasks.filter((task) => task.completed).length;
   const pending = total - completed;
 
   totalEl.textContent = total;
@@ -96,15 +101,15 @@ function updateStats() {
   pendingEl.textContent = pending;
 }
 
-// Guardar en localStorage
+/**
+ * Guarda el array de tareas en LocalStorage.
+ */
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-// Render inicial
 renderTasks();
 
-// Filtros
 const filterButtons = document.querySelectorAll("#filters button");
 
 filterButtons.forEach((button) => {
@@ -114,8 +119,7 @@ filterButtons.forEach((button) => {
   });
 });
 
-// Buscador
 searchInput.addEventListener("input", () => {
-  searchText = searchInput.value;
+  searchText = searchInput.value.trim();
   renderTasks();
 });
