@@ -1,3 +1,10 @@
+import {
+  getTasks,
+  createTask,
+  toggleTask,
+  deleteTask,
+} from "./src/api/client.js";
+
 const form = document.getElementById("task-form");
 const input = document.getElementById("task-input");
 const priorityInput = document.getElementById("priority-input");
@@ -13,7 +20,7 @@ const completeAllBtn = document.getElementById("complete-all");
 const clearCompletedBtn = document.getElementById("clear-completed");
 const themeToggleBtn = document.getElementById("theme-toggle");
 
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let tasks = [];
 let currentFilter = "all";
 let searchText = "";
 let currentSort = "created";
@@ -25,52 +32,60 @@ if (savedTheme === "dark") {
   themeToggleBtn.textContent = "Modo claro";
 }
 
-/**
- * Crea una nueva tarea y la añade al array de tareas.
- */
-form.addEventListener("submit", (e) => {
+async function loadTasks() {
+  try {
+    showLoading();
+    tasks = await getTasks();
+    renderTasks();
+  } catch (error) {
+    showError("No se pudieron cargar las tareas. Revisa que el servidor esté encendido.");
+  }
+}
+
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const title = input.value.trim();
 
-  if (title === "") return;
+  if (title === "") {
+    showError("La tarea no puede estar vacía.");
+    return;
+  }
 
-  const task = {
-    id: Date.now(),
-    title: title,
-    completed: false,
-    priority: priorityInput.value,
-    createdAt: new Date().toISOString(),
-  };
-
-  tasks.push(task);
-  input.value = "";
-  priorityInput.value = "low";
-
-  renderTasks();
+  try {
+    await createTask(title, priorityInput.value);
+    input.value = "";
+    priorityInput.value = "low";
+    await loadTasks();
+  } catch (error) {
+    showError("No se pudo crear la tarea.");
+  }
 });
 
-/**
- * Renderiza la lista de tareas aplicando filtros, búsqueda y orden.
- */
 function renderTasks() {
   list.innerHTML = "";
 
   let filteredTasks = [...tasks];
 
   if (currentFilter === "completed") {
-    filteredTasks = filteredTasks.filter((task) => task.completed);
+    filteredTasks = filteredTasks.filter((task) => task.completada);
   } else if (currentFilter === "pending") {
-    filteredTasks = filteredTasks.filter((task) => !task.completed);
+    filteredTasks = filteredTasks.filter((task) => !task.completada);
   }
 
   if (searchText !== "") {
     filteredTasks = filteredTasks.filter((task) =>
-      task.title.toLowerCase().includes(searchText.toLowerCase())
+      task.titulo.toLowerCase().includes(searchText.toLowerCase())
     );
   }
 
   filteredTasks = sortTasks(filteredTasks);
+
+  if (filteredTasks.length === 0) {
+    const emptyMessage = document.createElement("li");
+    emptyMessage.textContent = "No hay tareas para mostrar";
+    list.appendChild(emptyMessage);
+  }
 
   filteredTasks.forEach((task) => {
     const li = document.createElement("li");
@@ -79,33 +94,42 @@ function renderTasks() {
     taskInfo.className = "task-info";
 
     const title = document.createElement("span");
-    title.textContent = task.title;
+    title.textContent = task.titulo;
     title.className = "task-title";
 
-    if (task.completed) {
+    if (task.completada) {
       title.classList.add("completed");
     }
 
     const priority = document.createElement("span");
-    priority.className = `priority ${task.priority}`;
-    priority.textContent = `Prioridad: ${getPriorityText(task.priority)}`;
+    priority.className = `priority ${task.prioridad}`;
+    priority.textContent = `Prioridad: ${getPriorityText(task.prioridad)}`;
 
     taskInfo.appendChild(title);
     taskInfo.appendChild(priority);
 
-    taskInfo.addEventListener("click", () => {
-      task.completed = !task.completed;
-      renderTasks();
+    taskInfo.addEventListener("click", async () => {
+      try {
+        await toggleTask(task.id);
+        await loadTasks();
+      } catch (error) {
+        showError("No se pudo actualizar la tarea.");
+      }
     });
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Eliminar";
-    deleteBtn.setAttribute("aria-label", `Eliminar tarea ${task.title}`);
+    deleteBtn.setAttribute("aria-label", `Eliminar tarea ${task.titulo}`);
 
-    deleteBtn.addEventListener("click", (e) => {
+    deleteBtn.addEventListener("click", async (e) => {
       e.stopPropagation();
-      tasks = tasks.filter((t) => t.id !== task.id);
-      renderTasks();
+
+      try {
+        await deleteTask(task.id);
+        await loadTasks();
+      } catch (error) {
+        showError("No se pudo eliminar la tarea.");
+      }
     });
 
     li.appendChild(taskInfo);
@@ -113,13 +137,9 @@ function renderTasks() {
     list.appendChild(li);
   });
 
-  saveTasks();
   updateStats();
 }
 
-/**
- * Ordena las tareas según creación, alfabético o prioridad.
- */
 function sortTasks(taskList) {
   const priorityOrder = {
     high: 1,
@@ -128,33 +148,27 @@ function sortTasks(taskList) {
   };
 
   if (currentSort === "alphabetical") {
-    return taskList.sort((a, b) => a.title.localeCompare(b.title));
+    return taskList.sort((a, b) => a.titulo.localeCompare(b.titulo));
   }
 
   if (currentSort === "priority") {
     return taskList.sort(
-      (a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]
+      (a, b) => priorityOrder[a.prioridad] - priorityOrder[b.prioridad]
     );
   }
 
-  return taskList.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  return taskList.sort((a, b) => a.id - b.id);
 }
 
-/**
- * Devuelve el texto visible de la prioridad.
- */
 function getPriorityText(priority) {
   if (priority === "high") return "Alta";
   if (priority === "medium") return "Media";
   return "Baja";
 }
 
-/**
- * Actualiza las estadísticas de tareas.
- */
 function updateStats() {
   const total = tasks.length;
-  const completed = tasks.filter((task) => task.completed).length;
+  const completed = tasks.filter((task) => task.completada).length;
   const pending = total - completed;
 
   totalEl.textContent = total;
@@ -162,11 +176,20 @@ function updateStats() {
   pendingEl.textContent = pending;
 }
 
-/**
- * Guarda las tareas en LocalStorage.
- */
-function saveTasks() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+function showLoading() {
+  list.innerHTML = "";
+
+  const loading = document.createElement("li");
+  loading.textContent = "Cargando tareas...";
+  list.appendChild(loading);
+}
+
+function showError(message) {
+  list.innerHTML = "";
+
+  const error = document.createElement("li");
+  error.textContent = message;
+  list.appendChild(error);
 }
 
 const filterButtons = document.querySelectorAll("#filters button");
@@ -188,18 +211,32 @@ sortInput.addEventListener("change", () => {
   renderTasks();
 });
 
-completeAllBtn.addEventListener("click", () => {
-  tasks = tasks.map((task) => ({
-    ...task,
-    completed: true,
-  }));
+completeAllBtn.addEventListener("click", async () => {
+  try {
+    for (const task of tasks) {
+      if (!task.completada) {
+        await toggleTask(task.id);
+      }
+    }
 
-  renderTasks();
+    await loadTasks();
+  } catch (error) {
+    showError("No se pudieron completar todas las tareas.");
+  }
 });
 
-clearCompletedBtn.addEventListener("click", () => {
-  tasks = tasks.filter((task) => !task.completed);
-  renderTasks();
+clearCompletedBtn.addEventListener("click", async () => {
+  try {
+    const completedTasks = tasks.filter((task) => task.completada);
+
+    for (const task of completedTasks) {
+      await deleteTask(task.id);
+    }
+
+    await loadTasks();
+  } catch (error) {
+    showError("No se pudieron eliminar las tareas completadas.");
+  }
 });
 
 themeToggleBtn.addEventListener("click", () => {
@@ -210,4 +247,4 @@ themeToggleBtn.addEventListener("click", () => {
   themeToggleBtn.textContent = isDark ? "Modo claro" : "Modo oscuro";
 });
 
-renderTasks();
+loadTasks();
