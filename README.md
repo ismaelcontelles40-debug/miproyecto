@@ -1,50 +1,83 @@
-## TaskFlow
+# TaskFlow - Full Stack Task Manager
 
-TaskFlow es una aplicación de tareas creada como proyecto de bootcamp.
+## Descripción
 
-## Funcionalidades
+TaskFlow es una aplicación full stack para la gestión de tareas desarrollada con HTML, CSS, JavaScript, Node.js y Express.js.
+
+La aplicación permite:
+- crear tareas
+- completar tareas
+- eliminar tareas
+- gestionar prioridades
+- buscar tareas
+- ordenar tareas
+- usar modo oscuro
+- trabajar con una API REST propia
+
+---
+
+# Tecnologías utilizadas
+
+## Frontend
+- HTML5
+- CSS3
+- JavaScript
+- Fetch API
+
+## Backend
+- Node.js
+- Express.js
+- Dotenv
+- Cors
+- Nodemon
+
+---
+
+# Funcionalidades principales
 
 - Crear tareas
-- Marcar tareas como completadas
+- Completar tareas
 - Eliminar tareas
-- Filtrar tareas por todas, pendientes y completadas
-- Buscar tareas por texto
-- Guardar tareas en LocalStorage
-- Ver estadísticas en tiempo real
-- Diseño responsive para móvil y escritorio
+- Prioridades:
+  - Baja
+  - Media
+  - Alta
+- Ordenar tareas
+- Buscar tareas
+- Responsive Design
+- Dark Mode
+- API REST
+- Middleware logger
+- Manejo global de errores
 
-## Tecnologías utilizadas
+---
 
-- HTML
-- CSS
-- JavaScript
-- Tailwind CSS mediante CDN
-- LocalStorage
-- Git y GitHub
+# Arquitectura del proyecto
 
-## Diseño
-
-El wireframe inicial está guardado en la carpeta `docs/design`.
-
-## Pruebas manuales
-
-- La app funciona con la lista vacía.
-- No permite añadir tareas vacías.
-- Permite añadir tareas largas.
-- Permite marcar tareas como completadas.
-- Permite eliminar tareas.
-- Las tareas siguen guardadas al recargar la página.
-- Los filtros funcionan correctamente.
-- El buscador filtra las tareas por texto.
-- El diseño se adapta a móvil y escritorio.
-
-## Accesibilidad
-
-- Los inputs tienen etiquetas `label`.
-- Los botones tienen texto visible.
-- El foco es visible al navegar con teclado.
-- Se puede usar la aplicación con teclado.
-
-## Deploy
-
-URL del proyecto: https://miproyecto-pi.vercel.app
+```txt
+miproyecto
+│
+├── docs
+│   └── backend-api.md
+│
+├── server
+│   ├── src
+│   │   ├── config
+│   │   ├── controllers
+│   │   ├── middlewares
+│   │   ├── routes
+│   │   ├── services
+│   │   └── index.js
+│   │
+│   ├── .env
+│   ├── package.json
+│   └── package-lock.json
+│
+├── src
+│   └── api
+│       └── client.js
+│
+├── app.js
+├── index.html
+├── style.css
+└── README.md
