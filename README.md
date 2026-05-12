@@ -81,7 +81,7 @@ miproyecto
 ├── index.html
 ├── style.css
 └── README.md
----
+
 ```
 
 # Instalación
@@ -109,3 +109,82 @@ PORT=3000
 ```bash
 npm run dev
 ```
+
+Servidor:
+
+```txt
+http://localhost:3000
+```
+
+## 5. Ejecutar frontend
+
+Abrir `index.html` con Live Server.
+
+---
+
+# Endpoints principales
+
+## Obtener tareas
+
+```http
+GET /api/v1/tasks
+```
+
+## Crear tarea
+
+```http
+POST /api/v1/tasks
+```
+
+## Completar tarea
+
+```http
+PATCH /api/v1/tasks/:id
+```
+
+## Eliminar tarea
+
+```http
+DELETE /api/v1/tasks/:id
+```
+
+---
+
+# Capturas
+
+## Vista principal
+
+![Vista principal](docs/images/modo-claro.png)
+
+## Modo oscuro
+
+![Modo oscuro](docs/images/modo-oscuro.png)
+
+## Responsive móvil
+
+![Vista móvil](docs/images/modo-movil.png)
+
+---
+
+# Testing
+
+La API fue probada utilizando:
+- Thunder Client
+- navegador
+- Fetch API
+
+---
+
+# Mejoras futuras
+
+- Base de datos MongoDB
+- Autenticación de usuarios
+- Deploy en Vercel o Render
+- Swagger real
+- Persistencia completa
+
+---
+
+# Autor
+
+Ismael Contelles - 2026
