@@ -158,11 +158,11 @@ DELETE /api/v1/tasks/:id
 
 ## Modo oscuro
 
-![Modo oscuro](docs/images/modo-oscuro.png)
+![Modo oscuro](docs/images/Modo-oscuro.png)
 
 ## Modo móvil
 
-![Vista móvil](docs/images/modo-movil.png)
+![Vista móvil](docs/images/Modo-movil.png)
 
 ---
 
