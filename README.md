@@ -81,3 +81,13 @@ miproyecto
 ├── index.html
 ├── style.css
 └── README.md
+---
+```
+
+# Instalación
+
+## 1. Clonar repositorio
+
+```bash
+git clone https://github.com/ismaelcontelles40-debug/miproyecto.git
+```
