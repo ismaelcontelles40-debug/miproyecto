@@ -91,3 +91,21 @@ miproyecto
 ```bash
 git clone https://github.com/ismaelcontelles40-debug/miproyecto.git
 ```
+## 2. Instalar dependencias backend
+
+```bash
+cd server
+npm install
+```
+
+## 3. Crear archivo `.env`
+
+```env
+PORT=3000
+```
+
+## 4. Ejecutar backend
+
+```bash
+npm run dev
+```
