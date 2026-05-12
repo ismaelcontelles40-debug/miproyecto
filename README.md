@@ -152,7 +152,7 @@ DELETE /api/v1/tasks/:id
 
 # Capturas
 
-## Vista principal
+## Modo claro
 
 ![Vista principal](docs/images/modo-claro.png)
 
@@ -160,7 +160,7 @@ DELETE /api/v1/tasks/:id
 
 ![Modo oscuro](docs/images/modo-oscuro.png)
 
-## Responsive móvil
+## Modo móvil
 
 ![Vista móvil](docs/images/modo-movil.png)
 
