@@ -1,4 +1,6 @@
 # TaskFlow - Full Stack Task Manager
+Documentación técnica:
+[readme-tecnico.md](docs/readme-tecnico.md)
 
 ## Descripción
 
