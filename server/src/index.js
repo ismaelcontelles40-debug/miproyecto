@@ -1,4 +1,5 @@
 const loggerAcademico = require("./middlewares/logger.middleware");
+const setupSwagger = require("./swagger");
 const express = require("express");
 const cors = require("cors");
 const { port } = require("./config/env");
@@ -9,6 +10,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(loggerAcademico);
+
+setupSwagger(app);
 
 app.get("/", (req, res) => {
   res.json({
@@ -35,4 +38,5 @@ app.use((err, req, res, next) => {
 
 app.listen(port, () => {
   console.log(`Servidor en http://localhost:${port}`);
+  console.log(`Swagger disponible en http://localhost:${port}/api-docs`);
 });
