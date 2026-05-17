@@ -172,25 +172,6 @@ miproyecto
 
 ---
 
-# Tecnologías utilizadas
-
-## Frontend
-
-- HTML5
-- CSS3
-- JavaScript
-- Fetch API
-
-## Backend
-
-- Node.js
-- Express.js
-- Swagger UI
-- Dotenv
-- Cors
-- Nodemon
-
----
 
 # Autor
 
