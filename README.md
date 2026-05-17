@@ -84,7 +84,7 @@ server/src/index.js
 
 La documentación técnica completa del backend y arquitectura del proyecto se encuentra aquí:
 
- [README Técnico](docs/readme-tecnico.md)
+[README Técnico](docs/readmi-tecnico.md)
 
 ## Swagger UI
 
