@@ -5,15 +5,16 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
 
-Documentación técnica:
-[readme-tecnico.md](docs/readme-tecnico.md)
+---
 
-## Descripción
+# Descripción
 
 TaskFlow es una aplicación full stack para la gestión de tareas desarrollada con HTML, CSS, JavaScript, Node.js y Express.js.
 
 La aplicación permite:
+
 - crear tareas
 - completar tareas
 - eliminar tareas
@@ -21,24 +22,77 @@ La aplicación permite:
 - buscar tareas
 - ordenar tareas
 - usar modo oscuro
+- responsive design
 - trabajar con una API REST propia
 
 ---
 
-# Tecnologías utilizadas
+# Frontend
 
-## Frontend
+El frontend fue desarrollado utilizando:
+
 - HTML5
 - CSS3
-- JavaScript
+- JavaScript Vanilla
 - Fetch API
 
-## Backend
+## Funciones principales
+
+- renderizado dinámico de tareas
+- búsqueda de tareas
+- ordenación
+- prioridades
+- modo oscuro
+- responsive design
+- conexión con API REST
+
+## Archivo principal
+
+```txt
+app.js
+```
+
+---
+
+# Backend
+
+El backend fue desarrollado utilizando:
+
 - Node.js
 - Express.js
-- Dotenv
-- Cors
-- Nodemon
+- Swagger UI
+- Middleware personalizado
+
+## Funciones principales
+
+- gestión API REST
+- manejo de peticiones HTTP
+- lógica de negocio
+- middlewares
+- manejo global de errores
+- documentación Swagger
+
+## Entrada principal
+
+```txt
+server/src/index.js
+```
+
+---
+
+# Documentación
+
+## Documentación técnica
+
+```txt
+docs/readme-tecnico.md
+```
+
+## Swagger UI
+
+```txt
+http://localhost:3000/api-docs
+```
 
 ---
 
@@ -47,10 +101,15 @@ La aplicación permite:
 - Crear tareas
 - Completar tareas
 - Eliminar tareas
-- Prioridades:
-  - Baja
-  - Media
-  - Alta
+
+## Prioridades
+
+- Baja
+- Media
+- Alta
+
+## Extras
+
 - Ordenar tareas
 - Buscar tareas
 - Responsive Design
@@ -66,95 +125,35 @@ La aplicación permite:
 ```txt
 miproyecto
 │
-├── docs
-│   └── backend-api.md
+├── docs                            # Documentación del proyecto
+│   ├── images                      # Capturas README
+│   ├── backend-api.md              # Documentación inicial API
+│   └── readme-tecnico.md           # Documentación técnica
 │
-├── server
-│   ├── src
-│   │   ├── config
-│   │   ├── controllers
-│   │   ├── middlewares
-│   │   ├── routes
-│   │   ├── services
-│   │   └── index.js
+├── server                          # Backend Express
 │   │
-│   ├── .env
-│   ├── package.json
+│   ├── src
+│   │   │
+│   │   ├── config                  # Configuración y variables
+│   │   ├── controllers             # Controladores HTTP
+│   │   ├── middlewares             # Middlewares personalizados
+│   │   ├── routes                  # Endpoints API REST
+│   │   ├── services                # Lógica de negocio
+│   │   ├── swagger.js              # Configuración Swagger
+│   │   └── index.js                # Entrada principal backend
+│   │
+│   ├── .env                        # Variables de entorno
+│   ├── package.json                # Dependencias backend
 │   └── package-lock.json
 │
 ├── src
 │   └── api
-│       └── client.js
+│       └── client.js               # Comunicación Fetch API
 │
-├── app.js
-├── index.html
-├── style.css
-└── README.md
-
-```
-
-# Instalación
-
-## 1. Clonar repositorio
-
-```bash
-git clone https://github.com/ismaelcontelles40-debug/miproyecto.git
-```
-## 2. Instalar dependencias backend
-
-```bash
-cd server
-npm install
-```
-
-## 3. Crear archivo `.env`
-
-```env
-PORT=3000
-```
-
-## 4. Ejecutar backend
-
-```bash
-npm run dev
-```
-
-Servidor:
-
-```txt
-http://localhost:3000
-```
-
-## 5. Ejecutar frontend
-
-Abrir `index.html` con Live Server.
-
----
-
-# Endpoints principales
-
-## Obtener tareas
-
-```http
-GET /api/v1/tasks
-```
-
-## Crear tarea
-
-```http
-POST /api/v1/tasks
-```
-
-## Completar tarea
-
-```http
-PATCH /api/v1/tasks/:id
-```
-
-## Eliminar tarea
-
-```http
-DELETE /api/v1/tasks/:id
+├── app.js                          # Lógica principal frontend
+├── index.html                      # Estructura HTML
+├── style.css                       # Estilos y responsive
+└── README.md                       # Documentación principal
 ```
 
 ---
@@ -175,25 +174,26 @@ DELETE /api/v1/tasks/:id
 
 ---
 
-# Testing
+# Tecnologías utilizadas
 
-La API fue probada utilizando:
-- Thunder Client
-- navegador
+## Frontend
+
+- HTML5
+- CSS3
+- JavaScript
 - Fetch API
 
----
+## Backend
 
-# Mejoras futuras
-
-- Base de datos MongoDB
-- Autenticación de usuarios
-- Deploy en Vercel o Render
-- Swagger real
-- Persistencia completa
+- Node.js
+- Express.js
+- Swagger UI
+- Dotenv
+- Cors
+- Nodemon
 
 ---
 
 # Autor
 
-Ismael Contelles - 2026
+**Ismael Contelles - 2026**
